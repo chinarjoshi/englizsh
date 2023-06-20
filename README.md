@@ -15,8 +15,8 @@ Englizsh can be configured through the following environmental variables before 
 * `ENGLISH_TO_SHELL_CMD`: Command that translates natural language to shell command. Default: `sgpt --shell`
 * `SHELL_TO_ENGLISH_CMD`: Command that translates shell command to natural language. Default: `sgpt --describe-shell`
 * `TOGGLE_BUFFER_KEYBINDING`: Keycode for function 1. Default: `^ `
-* `TOGGLE_ENGLISH_KEYBINDING`: Keycode for function 2. Default: `^[ `
-* `EXECUTE_ENGLISH_KEYBINDING`: Keycode for function 4. Default: `^[[27;5;13~`
+* `TOGGLE_ENGLISH_KEYBINDING`: Keycode for function 2. Default: `^[ `
+* `EXECUTE_ENGLISH_KEYBINDING`: Keycode for function 4. Default: `^[[27;5;13~`
 * `ENGLIZSH_SAFE_CMD_NO_CONFIRM`: If true, executes commands deemed non-destructive without prompting for confirmation. Default: false
 * `ENGLIZSH_DEFAULT_EXECUTE`: If true, entering nothing when prompted for confirmation executes the command by default. Default: false
 
