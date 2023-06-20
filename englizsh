@@ -1,6 +1,6 @@
 #!/bin/zsh
 # Toggles the buffer between natural language and shell command.
-_englizsh() {
+_englizsh_toggle() {
     # The text in the terminal is stored in BUFFER.
     # If it is empty, then use the last executed command.
     [[ -z $BUFFER ]] && BUFFER=$(fc -ln -1)
@@ -29,20 +29,20 @@ _englizsh() {
 
 # Explicitly translate the buffer from natural language to shell command.
 # Useful when the first word of the query is a shell command, e.g. "ls -al with color"
-# Wrapper function for _english because bindkey cannot pass parameters.
+# Wrapper function for _english_toggle (because bindkey cannot pass parameters).
 _englizsh_toggle_nl() {
-    _englizsh_zsh --toggle-nl
+    _englizsh_toggle --toggle-nl
 }
 
 # Decides whether the input string is shell command or natural language, 
 # then translates it to the other one using the command in either 
-# 'SHELL_TO_ENGLISH' or 'ENGLISH_TO_SHELL'.
+# 'SHELL_TO_ENGLISH_CMD' or 'ENGLISH_TO_SHELL_CMD'.
 _englizsh_translate_buffer() {
     # If no override flag is given and the first word is a command, then it is a command.
     if [[ -z $2 ]] && command -v ${1%% *} > /dev/null; then
-        $SHELL_TO_ENGLISH $1
+        eval "$SHELL_TO_ENGLISH_CMD \"$1\""
     else
-        $ENGLISH_TO_SHELL $1
+        eval "$ENGLISH_TO_SHELL_CMD \"$1\""
     fi
 }
 
@@ -65,7 +65,7 @@ command_not_found_handler() {
 
     # Convert the natural language to shell
     printf '⌛'
-    local converted_command=$(englizsh --shell <<< "$@")
+    local converted_command=$(eval "$ENGLISH_TO_SHELL_CMD \"$@\"")
     printf "\r"
 
     # If it's destructive, then prompt for confirmation.
@@ -85,7 +85,7 @@ _englizsh_override_enter() {
     local old_buffer=$BUFFER
     BUFFER="$BUFFER ⌛"
     zle -I && zle redisplay
-    local converted_command=$(englizsh --shell <<< $old_buffer)
+    local converted_command=$(eval "$ENGLISH_TO_SHELL_CMD \"$old_buffer\"")
     BUFFER="$old_buffer"
     zle redisplay
     zle -I
@@ -169,18 +169,18 @@ _englizsh_is_destructive_command() {
 }
 
 # Set default value for environmental configuration variables
-[[ -z "$ENGLISH_TO_SHELL_CMD" ]] && SHELL_TO_ENGLISH_CMD='sgpt -s'
+[[ -z "$ENGLISH_TO_SHELL_CMD" ]] && ENGLISH_TO_SHELL_CMD='sgpt -s'
 [[ -z "$SHELL_TO_ENGLISH_CMD" ]] && SHELL_TO_ENGLISH_CMD='sgpt -d'
 [[ -z "$TOGGLE_BUFFER_KEYBINDING" ]] && TOGGLE_BUFFER_KEYBINDING='^ '
-[[ -z "$EXECUTE_ENGLISH_KEYBINDING" ]] && EXECUTE_ENGLISH_KEYBINDING=' '
-[[ -z "$TOGGLE_ENGLISH_KEYBINDING" ]] && TOGGLE_ENGLISH_KEYBINDING='[27;5;13~'
+[[ -z "$TOGGLE_ENGLISH_KEYBINDING" ]] && TOGGLE_ENGLISH_KEYBINDING=' '
+[[ -z "$EXECUTE_ENGLISH_KEYBINDING" ]] && EXECUTE_ENGLISH_KEYBINDING='[27;5;13~'
 [[ -z "$SHELL_EXECUTE_NO_CONFIRM" ]] && SHELL_EXECUTE_NO_CONFIRM='false'
 [[ -z "$DEFAULT_EXECUTE_SHELL_CMD" ]] && DEFAULT_EXECUTE_SHELL_CMD='false'
 
 # Create zle widget for functions, then set keybinding
-zle -N _englizsh_zsh
-zle -N _englizsh_override_enter_zsh
-zle -N _englizsh_toggle_nl_zsh
-bindkey $TOGGLE_BUFFER_KEYBINDING _englizsh_zsh
-bindkey $EXECUTE_ENGLISH_KEYBINDING _englizsh_override_enter_zsh
-bindkey $TOGGLE_ENGLISH_KEYBINDING _englizsh_toggle_nl_zsh
+zle -N _englizsh_toggle
+zle -N _englizsh_toggle_nl
+zle -N _englizsh_override_enter
+bindkey $TOGGLE_BUFFER_KEYBINDING _englizsh_toggle
+bindkey $TOGGLE_ENGLISH_KEYBINDING _englizsh_toggle_nl
+bindkey $EXECUTE_ENGLISH_KEYBINDING _englizsh_override_enter
