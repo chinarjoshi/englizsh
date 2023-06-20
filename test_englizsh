@@ -17,7 +17,7 @@ test_is_destructive_command() {
 
 test_handle_destructive_command() {
     . ./englizsh
-    echo "Instructions: Enter 'n' for rm, 'y' for dd, nothing for sed, and 'n' for find"
+    echo "Instructions: Enter 'n' for rm, 'y' for dd, 'y' for mv, nothing for sed, and 'n' for find"
     declare -A tests=( 
         # 0 means handled, 1 means abort
         ['git status']=0
