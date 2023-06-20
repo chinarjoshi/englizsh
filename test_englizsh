@@ -1,5 +1,5 @@
 test_is_destructive_command() {
-    . ./shell_gpt.sh
+    . ./englizsh
     declare -A tests=(
         # 0 means destructive, 1 means safe
         ['git status']=1
@@ -10,13 +10,13 @@ test_is_destructive_command() {
         ['sed -i']=0
     )
     for command in "${(k)tests[@]}"; do
-        _sgpt_is_destructive_command "$command"
+        _englizsh_is_destructive_command "$command"
         [[ $? -eq ${tests[$command]} ]] || echo "Test failed for '$command'"
     done
 }
 
 test_handle_destructive_command() {
-    . ./shell_gpt.sh
+    . ./englizsh
     echo "Instructions: Enter 'n' for rm, 'y' for dd, nothing for sed, and 'n' for find"
     declare -A tests=( 
         # 0 means handled, 1 means abort
@@ -29,7 +29,7 @@ test_handle_destructive_command() {
         ['find . -type f -name "*.txt" -delete']=1
     )
     for command in "${(k)tests[@]}"; do
-        _sgpt_handle_destructive_command "$command"
+        _englizsh_handle_destructive_command "$command"
         [[ $? -eq ${tests[$command]} ]] || echo "Test failed for '$command'"
     done
 }

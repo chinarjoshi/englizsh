@@ -40,9 +40,9 @@ _englizsh_toggle_nl() {
 _englizsh_translate_buffer() {
     # If no override flag is given and the first word is a command, then it is a command.
     if [[ -z $2 ]] && command -v ${1%% *} > /dev/null; then
-        eval "$SHELL_TO_ENGLISH_CMD \"$1\""
+        eval "$SHELL_TO_ENGLISH_CMD <<< \"$1\""
     else
-        eval "$ENGLISH_TO_SHELL_CMD \"$1\""
+        eval "$ENGLISH_TO_SHELL_CMD <<< \"$1\""
     fi
 }
 
@@ -65,7 +65,7 @@ command_not_found_handler() {
 
     # Convert the natural language to shell
     printf '⌛'
-    local converted_command=$(eval "$ENGLISH_TO_SHELL_CMD \"$@\"")
+    local converted_command=$(eval "$ENGLISH_TO_SHELL_CMD <<< \"$@\"")
     printf "\r"
 
     # If it's destructive, then prompt for confirmation.
@@ -74,7 +74,6 @@ command_not_found_handler() {
     fi
 
     # Execute the translated command.
-    # TODO Use subshell to execute command instead because it is safer then eval.
     eval "$converted_command"
 }
 
@@ -85,7 +84,7 @@ _englizsh_override_enter() {
     local old_buffer=$BUFFER
     BUFFER="$BUFFER ⌛"
     zle -I && zle redisplay
-    local converted_command=$(eval "$ENGLISH_TO_SHELL_CMD \"$old_buffer\"")
+    local converted_command=$(eval "$ENGLISH_TO_SHELL_CMD <<< \"$old_buffer\"")
     BUFFER="$old_buffer"
     zle redisplay
     zle -I
@@ -105,7 +104,7 @@ _englizsh_override_enter() {
 # If the command is not destructive or the user confirms, then return 0.
 # Otherwise, return 1.
 _englizsh_handle_destructive_command() {
-    local config_options=($SHELL_EXECUTE_NO_CONFIRM $DEFAULT_EXECUTE_SHELL_CMD)
+    local config_options=($ENGLIZSH_SAFE_CMD_NO_CONFIRM $ENGLIZSH_DEFAULT_EXECUTE)
     local confirm_string=$(
         [[ $config_options[2] == true ]] && echo 'Y/n' || echo 'y/N'
     )
@@ -174,8 +173,8 @@ _englizsh_is_destructive_command() {
 [[ -z "$TOGGLE_BUFFER_KEYBINDING" ]] && TOGGLE_BUFFER_KEYBINDING='^ '
 [[ -z "$TOGGLE_ENGLISH_KEYBINDING" ]] && TOGGLE_ENGLISH_KEYBINDING=' '
 [[ -z "$EXECUTE_ENGLISH_KEYBINDING" ]] && EXECUTE_ENGLISH_KEYBINDING='[27;5;13~'
-[[ -z "$SHELL_EXECUTE_NO_CONFIRM" ]] && SHELL_EXECUTE_NO_CONFIRM='false'
-[[ -z "$DEFAULT_EXECUTE_SHELL_CMD" ]] && DEFAULT_EXECUTE_SHELL_CMD='false'
+[[ -z "$ENGLIZSH_SAFE_CMD_NO_CONFIRM" ]] && ENGLIZSH_SAFE_CMD_NO_CONFIRM='false'
+[[ -z "$ENGLIZSH_DEFAULT_EXECUTE" ]] && ENGLIZSH_DEFAULT_EXECUTE='false'
 
 # Create zle widget for functions, then set keybinding
 zle -N _englizsh_toggle
