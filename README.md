@@ -4,6 +4,9 @@ A zsh plugin that defines 4 keybindings to intuitively interface with any comman
 ## Usage
 
 1. Control + Space: Toggles the buffer between English and command. Assumes the buffer contains a command if the first word is a valid command according to `command -v`.
+
+https://github.com/chinarjoshi/englizsh/assets/68311366/b1644a84-e3d8-41b3-b392-826f3350b22d
+
 2. Alt + Space: Explicitly translates the buffer from English to command. Useful when the first word is a command, for instance when you're typing a command but forgot some flags.
 3. Enter: Executes commands normally, but if command is not found and there appears to be English in the buffer, then it is translated to shell before executing.
 4. Control + Enter: Explicitly translates the buffer from English to command and executes it. Useful when you know you're executing English but it doesn't appear like it.
