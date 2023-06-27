@@ -17,17 +17,19 @@ https://github.com/chinarjoshi/englizsh/assets/68311366/1090127c-c863-4b4b-8f71-
 
 4. Control + Enter: Explicitly translates the buffer from English to command and executes it. Useful when you know you're executing English but it doesn't appear like it.
 
+https://github.com/chinarjoshi/englizsh/assets/68311366/e68fbe10-1230-485c-83ff-4d1deba02bd9
+
 ## Configuration
 
 Englizsh can be configured through the following environmental variables before the script is sourced:
 
 * `ENGLISH_TO_SHELL_CMD`: Command that translates natural language to shell command. Default: `sgpt --shell`
 * `SHELL_TO_ENGLISH_CMD`: Command that translates shell command to natural language. Default: `sgpt --describe-shell`
+* `ENGLIZSH_SAFE_CMD_NO_CONFIRM`: If true, executes non-destructive commands without prompting for confirmation
+* `ENGLIZSH_DEFAULT_EXECUTE`: If true, entering nothing when prompted for confirmation executes the command by default
 * `TOGGLE_BUFFER_KEYBINDING`: Keycode for function 1. Default: `^@`
 * `TOGGLE_ENGLISH_KEYBINDING`: Keycode for function 2. Default: `^[@`
 * `EXECUTE_ENGLISH_KEYBINDING`: Keycode for function 4. Default: `^[[27;5;13~`
-* `ENGLIZSH_SAFE_CMD_NO_CONFIRM`: If true, executes commands deemed non-destructive without prompting for confirmation. Default: false
-* `ENGLIZSH_DEFAULT_EXECUTE`: If true, entering nothing when prompted for confirmation executes the command by default. Default: false
 
 **Tip:** To find the keycode for the keybinding you wish to use, enter `Control + v` in zsh followed by the keybinding.
 
