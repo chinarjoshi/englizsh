@@ -12,6 +12,9 @@ https://github.com/chinarjoshi/englizsh/assets/68311366/b1644a84-e3d8-41b3-b392-
 https://github.com/chinarjoshi/englizsh/assets/68311366/3cefd48e-1f51-4d77-b07a-97e95597e54c
    
 3. Enter: Executes commands normally, but if command is not found and there appears to be English in the buffer, then it is translated to shell before executing.
+
+https://github.com/chinarjoshi/englizsh/assets/68311366/1090127c-c863-4b4b-8f71-51dda7f00423
+
 4. Control + Enter: Explicitly translates the buffer from English to command and executes it. Useful when you know you're executing English but it doesn't appear like it.
 
 ## Configuration
