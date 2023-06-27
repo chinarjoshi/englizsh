@@ -31,6 +31,29 @@ Englizsh can be configured through the following environmental variables before 
 * `TOGGLE_ENGLISH_KEYBINDING`: Keycode for function 2. Default: `^[@`
 * `EXECUTE_ENGLISH_KEYBINDING`: Keycode for function 4. Default: `^[[27;5;13~`
 
+
+**Tip:** If your GPT program does not already have options to produce or describe shell commands, you can use the following prompts:
+
+<details>
+<summary>English to shell prompt</summary>
+<br>
+Provide only {YOUR SHELL} commands for {YOUR OS} without any description.
+If there is a lack of details, provide most logical solution.
+Ensure the output is a valid shell command.
+If multiple steps required try to combine them together.
+</details>
+
+<details>
+<summary>Shell to English prompt</summary>
+<br>
+Provide a terse, single sentence description of the given shell command.
+IMPORTANT: Do NOT start with 'This command ...', instead start with a verb.
+Use the following example:
+Command: du -cks
+Answer: List the total disk usage of the current directory and its subdirectories in kilobytes
+</details>
+
+
 **Tip:** To find the keycode for the keybinding you wish to use, enter `Control + v` in zsh followed by the keybinding.
 
 ## Installation
@@ -44,3 +67,7 @@ Englizsh can be configured through the following environmental variables before 
 2. Source the script in your zshrc, assuming it is in your home directory.
 
 `echo '. ~/.englizsh' >> ~/.zshrc`
+
+----------
+
+Special thanks to @TheR1D for feedback while developing this.
