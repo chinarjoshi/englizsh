@@ -1,5 +1,6 @@
 # englizsh
-A zsh plugin that defines 4 keybindings to intuitively interface with any command-line GPT program. The idea is to toggle the contents of the shell buffer between natural language and shell command and directly execute natural language using GPT as the translator.
+A zsh plugin that defines 4 keybindings to intuitively interface with any command-line GPT program. The idea is to toggle the contents of the shell buffer bidirectionally between natural language and shell command, and directly execute natural language using GPT as the translator.
+*This means it can fully replace google for looking up the right command, and replace man/tldr for learning what a command does.*
 
 ## Usage
 
@@ -23,7 +24,7 @@ https://github.com/chinarjoshi/englizsh/assets/68311366/e68fbe10-1230-485c-83ff-
 
 Englizsh can be configured through the following environmental variables before the script is sourced:
 
-* `ENGLISH_TO_SHELL_CMD`: Command that translates natural language to shell command. Default: `sgpt --shell`
+* `ENGLISH_TO_SHELL_CMD`: Command that translates natural language to shell command. Default: `sgpt --shell`. Note: the command can be anything, not just shell_gpt.
 * `SHELL_TO_ENGLISH_CMD`: Command that translates shell command to natural language. Default: `sgpt --describe-shell`
 * `ENGLIZSH_SAFE_CMD_NO_CONFIRM`: If true, executes non-destructive commands without prompting for confirmation
 * `ENGLIZSH_DEFAULT_EXECUTE`: If true, entering nothing when prompted for confirmation executes the command by default
