@@ -20,6 +20,18 @@ https://github.com/chinarjoshi/englizsh/assets/68311366/1090127c-c863-4b4b-8f71-
 
 https://github.com/chinarjoshi/englizsh/assets/68311366/e68fbe10-1230-485c-83ff-4d1deba02bd9
 
+## Installation
+
+### Manually
+
+1. Download/update the script to `~/.englizsh` with curl:
+
+`curl https://raw.githubusercontent.com/chinarjoshi/englizsh/main/englizsh > ~/.englizsh`
+
+2. Source the script in your zshrc, assuming it is in your home directory.
+
+`echo '. ~/.englizsh' >> ~/.zshrc`
+
 ## Configuration
 
 Englizsh can be configured through the following environmental variables before the script is sourced:
@@ -56,18 +68,6 @@ Answer: List the total disk usage of the current directory and its subdirectorie
 
 
 **Tip:** To find the keycode for the keybinding you wish to use, enter `Control + v` in zsh followed by the keybinding.
-
-## Installation
-
-### Manually
-
-1. Download/update the script to `~/.englizsh` with curl:
-
-`curl https://raw.githubusercontent.com/chinarjoshi/englizsh/main/englizsh > ~/.englizsh`
-
-2. Source the script in your zshrc, assuming it is in your home directory.
-
-`echo '. ~/.englizsh' >> ~/.zshrc`
 
 ----------
 
